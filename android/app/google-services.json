@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "271219622297",
+    "project_id": "pharmacy-d204d",
+    "storage_bucket": "pharmacy-d204d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271219622297:android:0e471d2bc50f32ffcb5308",
+        "android_client_info": {
+          "package_name": "com.example.todo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271219622297-nb2sqnsg7f2t4ednqr72so8edfu5sea8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.todo_app",
+            "certificate_hash": "a98c3319fbd5dfdcecbc11f0dbab977f3942b75e"
+          }
+        },
+        {
+          "client_id": "271219622297-tqoq9l2116n0g9mlav6upttor5bqi58k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJboR18YSjY6tzwkoUIMOjvtjc1z8kIPo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271219622297-tqoq9l2116n0g9mlav6upttor5bqi58k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
