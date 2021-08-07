@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:todo_app/medules/SignupScreen/signupScreen.dart';
 import 'package:todo_app/medules/homeScreen/homeScreen.dart';
 import 'package:todo_app/shared/components/componentes.dart';
-import 'package:todo_app/shared/remote/firebase.dart';
+import 'package:todo_app/shared/network/local/localStorage.dart';
+import 'package:todo_app/shared/network/remote/firebase.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatefulWidget {
@@ -117,19 +119,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     InkWell(
                       onTap: () async {
+                        final GoogleSignInAccount? googleSignInAccount =
+                            await googleSignIn.signIn();
+                        final GoogleSignInAuthentication
+                            googleSignInAuthentication =
+                            await googleSignInAccount!.authentication;
+
                         User? user = await Authentication.signInWithGoogle(
                             context: context);
                         print(user!.photoURL.toString());
                         print(user.displayName.toString());
-                        print(user.refreshToken.toString());
+                        print(googleSignInAuthentication.idToken.toString());
+                        savetoke(
+                            key: "token",
+                            value:
+                                googleSignInAuthentication.idToken.toString());
 
                         // ignore: unnecessary_null_comparison
                         if (user != null) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(
-                                user: user,
-                              ),
+                              builder: (context) => HomeScreen(),
                             ),
                           );
                         }
@@ -156,6 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             setState(() {
                               isloading = true;
                             });
+
                             Authentication.logIn(loginemailcontroller.text,
                                     loginPasswordcontroller.text)
                                 .then((user) {
@@ -163,12 +174,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 setState(() {
                                   isloading = false;
                                   print("login succseess");
+
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => HomeScreen(
-                                                user: user,
-                                              )));
+                                          builder: (context) => HomeScreen()));
+                                  savetoke(
+                                          key: "token",
+                                          value: user.uid.toString())
+                                      .then((value) => print(value));
                                   print("token:" + user.uid.toString());
                                   print("name:" + user.email.toString());
                                 });

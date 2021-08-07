@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:todo_app/medules/homeScreen/homeScreen.dart';
 import 'package:todo_app/shared/components/componentes.dart';
-import 'package:todo_app/shared/remote/firebase.dart';
+import 'package:todo_app/shared/network/remote/firebase.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);

@@ -4,16 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:todo_app/medules/loginScreen/loginScreen.dart';
 
 import 'package:todo_app/shared/components/componentes.dart';
+import 'package:todo_app/shared/network/remote/firebase.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, required User user})
-      : _user = user,
-        super(key: key);
-
-  final User _user;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -51,13 +48,20 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14),
-              child: Icon(
-                Icons.menu,
-                color: HexColor('0F5AF2'),
+              child: InkWell(
+                onTap: () async {
+                  Authentication.signout();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
+                },
+                child: Icon(
+                  Icons.menu,
+                  color: HexColor('0F5AF2'),
+                ),
               ),
             )
           ],
-          title: Text("Good everything " + user!.uid,
+          title: Text("Good everything " + user!.displayName.toString(),
               style: GoogleFonts.roboto(color: Colors.black, fontSize: 15)),
           leading: Padding(
             padding: const EdgeInsets.all(10.0),

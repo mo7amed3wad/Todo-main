@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:todo_app/medules/SignupScreen/signupScreen.dart';
 import 'package:todo_app/medules/homeScreen/homeScreen.dart';
-import 'package:todo_app/shared/remote/firebase.dart';
+import 'package:todo_app/shared/network/local/localStorage.dart';
+import 'package:todo_app/shared/network/remote/firebase.dart';
 import 'medules/loginScreen/loginScreen.dart';
 
 void main() {
@@ -17,14 +19,32 @@ void main() {
 User? _auth = FirebaseAuth.instance.currentUser;
 
 late BuildContext context;
+
 @override
-void initState() {
-  print("init");
+class MyApp extends StatefulWidget {
+  // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
-  
-  // This widget is the root of your application.
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    checlogin();
+  }
+
+  Widget currentpage = LoginScreen();
+  void checlogin() async {
+    String? token = await getData();
+    print("token" + token.toString());
+    if (token != null) {
+      setState(() {
+        currentpage = HomeScreen();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -33,7 +53,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: currentpage,
     );
   }
 }
