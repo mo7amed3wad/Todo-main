@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:todo_app/medules/homeScreen/homeScreen.dart';
+import 'package:todo_app/medules/loginScreen/loginScreen.dart';
 import 'package:todo_app/shared/components/componentes.dart';
 import 'package:todo_app/shared/network/remote/firebase.dart';
 
@@ -144,11 +145,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             signupnamecontroller.text,
                             signupemailcontroller.text,
                             signuppasswordcontroller.text)
-                        .then((value) => print(value!.displayName));
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => HomeScreen(us,)));
+                        .then((value) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          Authentication.customSnackBar(
+                              content: "Account created success",
+                              color: Colors.green));
+                      print(value!.displayName);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    });
+                  } else if (isaccepted == false) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        Authentication.customSnackBar(
+                            content: "please accept terms", color: Colors.red));
                   } else {
-                    print("some field is empty");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        Authentication.customSnackBar(
+                            content: "Account not created", color: Colors.red));
                   }
                 }))
       ],
