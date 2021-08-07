@@ -86,6 +86,7 @@ class Authentication {
         if (e.code == 'account-exists-with-different-credential') {
           ScaffoldMessenger.of(context).showSnackBar(
             Authentication.customSnackBar(
+              color: Colors.green,
               content:
                   'The account already exists with a different credential.',
             ),
@@ -93,6 +94,7 @@ class Authentication {
         } else if (e.code == 'invalid-credential') {
           ScaffoldMessenger.of(context).showSnackBar(
             Authentication.customSnackBar(
+              color: Colors.red,
               content: 'Error occurred while accessing credentials. Try again.',
             ),
           );
@@ -100,6 +102,7 @@ class Authentication {
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           Authentication.customSnackBar(
+            color: Colors.red,
             content: 'Error occurred using Google Sign-In. Try again.',
           ),
         );
@@ -109,12 +112,13 @@ class Authentication {
     return user;
   }
 
-  static SnackBar customSnackBar({required String content}) {
+  static SnackBar customSnackBar(
+      {required String content, required Color color}) {
     return SnackBar(
-      backgroundColor: Colors.black,
+      backgroundColor: color,
       content: Text(
         content,
-        style: TextStyle(color: Colors.redAccent, letterSpacing: 0.5),
+        style: TextStyle(color: Colors.white, letterSpacing: 0.5),
       ),
     );
   }

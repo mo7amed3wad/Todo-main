@@ -61,12 +61,18 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           ],
-          title: Text("Good everything " + user!.displayName.toString(),
-              style: GoogleFonts.roboto(color: Colors.black, fontSize: 15)),
+          title: user!.phoneNumber == null
+              ? Text(
+                  "Good everything " + user!.email!.split("@").first.toString(),
+                  style: GoogleFonts.roboto(color: Colors.black, fontSize: 15))
+              : Text("Good everything " + user!.displayName.toString(),
+                  style: GoogleFonts.roboto(color: Colors.black, fontSize: 15)),
           leading: Padding(
             padding: const EdgeInsets.all(10.0),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(user!.photoURL.toString()),
+              child: user != null
+                  ? Text(user!.email!.split('').first.toUpperCase())
+                  : Image(image: NetworkImage(user!.photoURL.toString())),
               radius: 26,
             ),
           ),

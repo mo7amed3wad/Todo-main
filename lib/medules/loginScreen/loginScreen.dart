@@ -182,7 +182,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   savetoke(
                                           key: "token",
                                           value: user.uid.toString())
-                                      .then((value) => print(value));
+                                      .then((value) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        Authentication.customSnackBar(
+                                            color: Colors.green,
+                                            content: "Succefull Login"));
+                                  }).then((value) => print(value));
                                   print("token:" + user.uid.toString());
                                   print("name:" + user.email.toString());
                                 });
@@ -190,12 +195,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 setState(() {
                                   isloading = false;
                                 });
-                                print("faild login ");
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    Authentication.customSnackBar(
+                                        color: Colors.red,
+                                        content: "Failed Login"));
                               }
                             });
-                          } else {
-                            print("some field is empty");
-                          }
+                          } else {}
                         })
               ]),
             ),
